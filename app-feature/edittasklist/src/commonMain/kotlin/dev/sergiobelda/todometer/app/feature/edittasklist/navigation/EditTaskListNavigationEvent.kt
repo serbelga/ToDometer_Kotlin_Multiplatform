@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Sergio Belda
+ * Copyright 2025 Sergio Belda
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package dev.sergiobelda.todometer.app.feature.addtask.ui
+package dev.sergiobelda.todometer.app.feature.edittasklist.navigation
 
-import androidx.compose.runtime.Immutable
-import dev.sergiobelda.todometer.common.ui.error.ErrorUi
+import dev.sergiobelda.todometer.common.ui.base.navigation.BaseNavigationEvent
 
-@Immutable
-data class AddTaskState(
-    val isAddingTask: Boolean = false,
-    val errorUi: ErrorUi? = null,
-)
+sealed class EditTaskListNavigationEvent : BaseNavigationEvent {
+    data object NavigateBack : EditTaskListNavigationEvent()
+}

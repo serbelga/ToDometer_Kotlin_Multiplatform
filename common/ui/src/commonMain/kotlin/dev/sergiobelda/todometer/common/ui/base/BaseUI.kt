@@ -24,14 +24,18 @@ abstract class BaseUI<U : BaseUIState, C : BaseContentState> {
     private lateinit var eventHandler: BaseEventHandler
 
     @Composable
-    abstract fun rememberContentState(): C
+    abstract fun rememberContentState(
+        uiState: U,
+    ): C
 
     @Composable
     fun Content(
         viewModel: BaseViewModel<U>,
         onEvent: (BaseEvent) -> Unit = {},
     ) {
-        val contentState = rememberContentState()
+        val contentState = rememberContentState(
+            uiState = viewModel.uiState,
+        )
         eventHandler = remember {
             BaseEventHandler { event ->
                 viewModel.handleEvent(event)

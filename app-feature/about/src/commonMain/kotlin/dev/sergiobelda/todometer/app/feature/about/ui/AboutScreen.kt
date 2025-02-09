@@ -56,7 +56,9 @@ import dev.sergiobelda.todometer.common.ui.base.DefaultContentState
 data object AboutScreen : BaseUI<AboutUIState, DefaultContentState>() {
 
     @Composable
-    override fun rememberContentState(): DefaultContentState = DefaultContentState
+    override fun rememberContentState(
+        uiState: AboutUIState,
+    ): DefaultContentState = DefaultContentState
 
     @NavDestination(
         name = "About",

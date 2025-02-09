@@ -28,7 +28,7 @@ import androidx.compose.runtime.setValue
 import dev.sergiobelda.todometer.common.ui.base.BaseContentState
 import dev.sergiobelda.todometer.common.ui.base.BaseEvent
 
-class AddTaskListContentState internal constructor(
+data class AddTaskListContentState internal constructor(
     val snackbarHostState: SnackbarHostState,
 ) : BaseContentState {
     var taskListName: String by mutableStateOf("")

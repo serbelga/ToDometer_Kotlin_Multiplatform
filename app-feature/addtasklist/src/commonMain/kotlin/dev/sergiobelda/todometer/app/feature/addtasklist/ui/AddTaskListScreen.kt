@@ -42,7 +42,9 @@ import dev.sergiobelda.todometer.common.ui.base.BaseUI
 data object AddTaskListScreen : BaseUI<AddTaskListUIState, AddTaskListContentState>() {
 
     @Composable
-    override fun rememberContentState(): AddTaskListContentState = rememberAddTaskListContentState()
+    override fun rememberContentState(
+        uiState: AddTaskListUIState,
+    ): AddTaskListContentState = rememberAddTaskListContentState()
 
     @NavDestination(
         name = "AddTaskList",

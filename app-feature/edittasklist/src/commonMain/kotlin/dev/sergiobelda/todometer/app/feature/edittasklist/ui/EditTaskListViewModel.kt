@@ -16,26 +16,24 @@
 
 package dev.sergiobelda.todometer.app.feature.edittasklist.ui
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.sergiobelda.todometer.common.domain.doIfError
 import dev.sergiobelda.todometer.common.domain.doIfSuccess
 import dev.sergiobelda.todometer.common.domain.usecase.tasklist.GetTaskListSelectedUseCase
 import dev.sergiobelda.todometer.common.domain.usecase.tasklist.UpdateTaskListUseCase
+import dev.sergiobelda.todometer.common.ui.base.BaseEvent
+import dev.sergiobelda.todometer.common.ui.base.BaseViewModel
 import dev.sergiobelda.todometer.common.ui.error.mapToErrorUi
 import kotlinx.coroutines.launch
 
 class EditTaskListViewModel(
     private val getTaskListSelectedUseCase: GetTaskListSelectedUseCase,
     private val updateTaskListUseCase: UpdateTaskListUseCase,
-) : ViewModel() {
-
-    var state by mutableStateOf(EditTaskListState(isLoading = true))
-        private set
-
+) : BaseViewModel<EditTaskListUIState>(
+    initialUIState = EditTaskListUIState(
+        isLoading = true,
+    ),
+) {
     init {
         getTaskListSelected()
     }
@@ -43,24 +41,30 @@ class EditTaskListViewModel(
     private fun getTaskListSelected() = viewModelScope.launch {
         getTaskListSelectedUseCase().collect { result ->
             result.doIfSuccess { taskList ->
-                state = state.copy(
-                    isLoading = false,
-                    taskList = taskList,
-                    errorUi = null,
-                )
+                updateUIState {
+                    it.copy(
+                        isLoading = false,
+                        taskList = taskList,
+                        errorUi = null,
+                    )
+                }
             }.doIfError { error ->
-                state = state.copy(
-                    isLoading = false,
-                    taskList = null,
-                    errorUi = error.mapToErrorUi(),
-                )
+                updateUIState {
+                    it.copy(
+                        isLoading = false,
+                        taskList = null,
+                        errorUi = error.mapToErrorUi(),
+                    )
+                }
             }
         }
     }
 
     fun updateTaskList(name: String) = viewModelScope.launch {
-        state.taskList?.let {
+        uiState.taskList?.let {
             updateTaskListUseCase(it.copy(name = name))
         }
     }
+
+    override fun handleEvent(event: BaseEvent) = Unit
 }

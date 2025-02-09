@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Sergio Belda
+ * Copyright 2025 Sergio Belda
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package dev.sergiobelda.todometer.app.feature.addtask.di
+package dev.sergiobelda.todometer.app.feature.addtask.navigation
 
-import dev.sergiobelda.todometer.app.feature.addtask.ui.AddTaskViewModel
-import dev.sergiobelda.todometer.common.ui.base.di.baseViewModelOf
-import org.koin.core.module.dsl.named
-import org.koin.dsl.module
+import dev.sergiobelda.todometer.common.ui.base.navigation.BaseNavigationEvent
 
-val addTaskViewModelModule = module {
-    baseViewModelOf(::AddTaskViewModel) {
-        named<AddTaskViewModel>()
-    }
+sealed class AddTaskNavigationEvent : BaseNavigationEvent {
+    data object NavigateBack : AddTaskNavigationEvent()
 }

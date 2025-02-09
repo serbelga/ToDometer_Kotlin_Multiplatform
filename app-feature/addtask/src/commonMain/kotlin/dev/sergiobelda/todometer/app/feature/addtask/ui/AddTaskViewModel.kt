@@ -16,26 +16,17 @@
 
 package dev.sergiobelda.todometer.app.feature.addtask.ui
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import dev.sergiobelda.todometer.common.domain.doIfError
-import dev.sergiobelda.todometer.common.domain.doIfSuccess
-import dev.sergiobelda.todometer.common.domain.model.Tag
 import dev.sergiobelda.todometer.common.domain.usecase.task.InsertTaskInTaskListSelectedUseCase
-import dev.sergiobelda.todometer.common.ui.error.mapToErrorUi
-import kotlinx.coroutines.launch
+import dev.sergiobelda.todometer.common.ui.base.BaseEvent
+import dev.sergiobelda.todometer.common.ui.base.BaseViewModel
 
 class AddTaskViewModel(
     private val insertTaskInTaskListSelectedUseCase: InsertTaskInTaskListSelectedUseCase,
-) : ViewModel() {
+) : BaseViewModel<AddTaskUIState>(
+    initialUIState = AddTaskUIState(),
+) {
 
-    var state by mutableStateOf(AddTaskState())
-        private set
-
-    fun insertTask(
+    /*fun insertTask(
         title: String,
         tag: Tag,
         description: String? = null,
@@ -61,5 +52,8 @@ class AddTaskViewModel(
                 errorUi = error.mapToErrorUi(),
             )
         }
+    }*/
+
+    override fun handleEvent(event: BaseEvent) {
     }
 }

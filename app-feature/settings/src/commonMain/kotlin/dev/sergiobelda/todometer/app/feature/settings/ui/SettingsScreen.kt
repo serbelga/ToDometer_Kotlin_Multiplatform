@@ -70,7 +70,9 @@ import dev.sergiobelda.todometer.common.ui.base.DefaultContentState
 data object SettingsScreen : BaseUI<SettingsUIState, DefaultContentState>() {
 
     @Composable
-    override fun rememberContentState(): DefaultContentState = DefaultContentState
+    override fun rememberContentState(
+        uiState: SettingsUIState,
+    ): DefaultContentState = DefaultContentState
 
     @NavDestination(
         destinationId = "settings",
